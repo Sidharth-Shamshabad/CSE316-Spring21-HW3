@@ -16,6 +16,9 @@ import {
   UpdateListItems_Transaction,
   ReorderItems_Transaction,
   EditItem_Transaction,
+  SortTasks_Transaction,
+  SortDueDates_Transaction,
+  SortStatus_Transaction,
 } from '../../utils/jsTPS'
 import WInput from 'wt-frontend/build/components/winput/WInput'
 
@@ -26,6 +29,10 @@ const Homescreen = (props) => {
   const [showLogin, toggleShowLogin] = useState(false)
   const [showCreate, toggleShowCreate] = useState(false)
 
+  const [sortTasksFlag, setSortTasksFlag] = useState(0)
+  const [sortDueDatesFlag, setSortDueDatesFlag] = useState(0)
+  const [sortStatusFlag, setSortStatusFlag] = useState(0)
+
   const [ReorderTodoItems] = useMutation(mutations.REORDER_ITEMS)
   const [UpdateTodoItemField] = useMutation(mutations.UPDATE_ITEM_FIELD)
   const [UpdateTodolistField] = useMutation(mutations.UPDATE_TODOLIST_FIELD)
@@ -33,6 +40,9 @@ const Homescreen = (props) => {
   const [DeleteTodoItem] = useMutation(mutations.DELETE_ITEM)
   const [AddTodolist] = useMutation(mutations.ADD_TODOLIST)
   const [AddTodoItem] = useMutation(mutations.ADD_ITEM)
+  const [SortTasks] = useMutation(mutations.SORT_TASKS)
+  const [SortDueDates] = useMutation(mutations.SORT_DUE_DATES)
+  const [SortStatus] = useMutation(mutations.SORT_STATUS)
 
   const { loading, error, data, refetch } = useQuery(GET_DB_TODOS)
   if (loading) {
@@ -56,6 +66,7 @@ const Homescreen = (props) => {
         let list = todolists.find((list) => list._id === tempID)
         setActiveList(list)
       }
+      console.log(data.getAllTodos)
     }
   }
 
@@ -195,6 +206,45 @@ const Homescreen = (props) => {
     tpsRedo()
   }
 
+  const sortTasks = async (_id) => {
+    let transaction = new SortTasks_Transaction(
+      _id,
+      SortTasks,
+      sortTasksFlag,
+      setSortTasksFlag,
+      activeList,
+      UpdateTodolistField
+    )
+    props.tps.addTransaction(transaction)
+    tpsRedo()
+  }
+
+  const sortDueDates = async (_id) => {
+    let transaction = new SortDueDates_Transaction(
+      _id,
+      SortDueDates,
+      sortDueDatesFlag,
+      setSortDueDatesFlag,
+      activeList,
+      UpdateTodolistField
+    )
+    props.tps.addTransaction(transaction)
+    tpsRedo()
+  }
+
+  const sortStatus = async (_id) => {
+    let transaction = new SortStatus_Transaction(
+      _id,
+      SortStatus,
+      sortStatusFlag,
+      setSortStatusFlag,
+      activeList,
+      UpdateTodolistField
+    )
+    props.tps.addTransaction(transaction)
+    tpsRedo()
+  }
+
   const handleSetActive = (id) => {
     const todo = todolists.find((todo) => todo.id === id || todo._id === id)
     setActiveList(todo)
@@ -274,6 +324,9 @@ const Homescreen = (props) => {
               setShowDelete={setShowDelete}
               activeList={activeList}
               setActiveList={setActiveList}
+              sortTasks={sortTasks}
+              sortDueDates={sortDueDates}
+              sortStatus={sortStatus}
             />
           </div>
         ) : (

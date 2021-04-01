@@ -173,12 +173,13 @@ export class SortTasks_Transaction extends jsTPS_Transaction {
     return data
   }
   async undoTransaction() {
-    console.log(this.prevList.items)
+    let stringList = JSON.stringify(this.prevList)
+    console.log(stringList)
     let { data } = await this.updateTodolistField({
       variables: {
         _id: this.listID,
         field: this.field,
-        value: this.prevList.items,
+        value: stringList,
       },
     })
     if (this.sortTasksFlag === 0) {

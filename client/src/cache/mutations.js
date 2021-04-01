@@ -149,3 +149,9 @@ export const UPDATE_TODOLIST_FIELD = gql`
     updateTodolistField(_id: $_id, field: $field, value: $value)
   }
 `
+
+export const UPDATE_LIST = gql`
+  mutation UpdateList($_id: String!, $prevList: [ItemInput]!) {
+    updateList(_id: $_id, prevList: $prevList)
+  }
+`

@@ -43,6 +43,7 @@ const Homescreen = (props) => {
   const [SortTasks] = useMutation(mutations.SORT_TASKS)
   const [SortDueDates] = useMutation(mutations.SORT_DUE_DATES)
   const [SortStatus] = useMutation(mutations.SORT_STATUS)
+  const [UpdateList] = useMutation(mutations.UPDATE_LIST)
 
   const { loading, error, data, refetch } = useQuery(GET_DB_TODOS)
   if (loading) {

@@ -284,18 +284,18 @@ module.exports = {
       if (updated) return listItems
       return found.items
     },
-    // updateList: async (_, args) => {
-    //   const { _id, prevList } = args
-    //   const listId = new ObjectId(_id)
-    //   const found = await Todolist.findOne({ _id: listId })
+    updateList: async (_, args) => {
+      const { _id, prevList } = args
+      const listId = new ObjectId(_id)
+      const found = await Todolist.findOne({ _id: listId })
 
-    //   const updated = await Todolist.updateOne(
-    //     { _id: listId },
-    //     { items: prevList }
-    //   )
+      const updated = await Todolist.updateOne(
+        { _id: listId },
+        { items: prevList }
+      )
 
-    //   if (updated) return listItems
-    //   return found.items
-    // }
+      if (updated) return listItems
+      return found.items
+    },
   },
 }

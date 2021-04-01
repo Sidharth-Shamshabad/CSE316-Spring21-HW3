@@ -10,7 +10,7 @@ const TableHeader = (props) => {
 
   return (
     <WRow className='table-header'>
-      <WCol size='4'>
+      <WCol size='3'>
         <WButton
           className='table-header-section'
           wType='texted'
@@ -22,7 +22,7 @@ const TableHeader = (props) => {
         </WButton>
       </WCol>
 
-      <WCol size='3'>
+      <WCol size='2'>
         <WButton
           className='table-header-section'
           wType='texted'
@@ -45,6 +45,12 @@ const TableHeader = (props) => {
           }}
         >
           Status
+        </WButton>
+      </WCol>
+
+      <WCol size='2'>
+        <WButton className='table-header-section' wType='texted'>
+          Assigned
         </WButton>
       </WCol>
 

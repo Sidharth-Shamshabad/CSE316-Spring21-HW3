@@ -62,6 +62,14 @@ body {
   color: $primary-color;
 }
 
+.assigned-complete {
+  color: black;
+}
+
+.assigned-incomplete {
+  color: red;
+}
+
 .list-item-active {
   background-color: var(--deep-blue);
 }

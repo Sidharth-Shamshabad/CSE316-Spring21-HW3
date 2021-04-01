@@ -3,7 +3,7 @@ import { WButton, WInput, WRow, WCol } from 'wt-frontend'
 
 const TableEntry = (props) => {
   const { data } = props
-  console.log(data)
+
   const completeStyle = data.completed ? ' complete-task' : ' incomplete-task'
   const assignedStyle = data.completed
     ? ' assigned-complete'

@@ -328,6 +328,8 @@ const Homescreen = (props) => {
               sortTasks={sortTasks}
               sortDueDates={sortDueDates}
               sortStatus={sortStatus}
+              undo={tpsUndo}
+              redo={tpsRedo}
             />
           </div>
         ) : (

@@ -86,13 +86,29 @@ const Homescreen = (props) => {
     return retVal
   }
 
+  const updateSortingFlags = async () => {
+    setSortTasksFlag(0)
+    setSortDueDatesFlag(0)
+    setSortStatusFlag(0)
+    setSortAssignedFlag(0)
+  }
+
   // Creates a default item and passes it to the backend resolver.
   // The return id is assigned to the item, and the item is appended
   //  to the local cache copy of the active todolist.
   const addItem = async () => {
     let list = activeList
     const items = list.items
-    const lastID = items.length >= 1 ? items[items.length - 1].id + 1 : 0
+    let lastID = 0
+    if (items.length >= 1) {
+      for (let i = 0; i < items.length; i++) {
+        const element = items[i]
+        if (element.id == lastID) {
+          lastID = element.id + 1
+        }
+      }
+    }
+
     const newItem = {
       _id: '',
       id: lastID,
@@ -114,6 +130,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    updateSortingFlags()
   }
 
   const deleteItem = async (item) => {
@@ -138,6 +155,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    updateSortingFlags()
   }
 
   const editItem = async (itemID, field, value, prev) => {
@@ -167,6 +185,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    updateSortingFlags()
   }
 
   const createNewList = async () => {
@@ -187,6 +206,7 @@ const Homescreen = (props) => {
       refetchQueries: [{ query: GET_DB_TODOS }],
     })
     setActiveList(list)
+    updateSortingFlags()
   }
 
   const deleteList = async (_id) => {
@@ -196,6 +216,7 @@ const Homescreen = (props) => {
     })
     refetch()
     setActiveList({})
+    updateSortingFlags()
   }
 
   const updateListField = async (_id, field, value, prev) => {
@@ -208,6 +229,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    updateSortingFlags()
   }
 
   const sortTasks = async (_id) => {

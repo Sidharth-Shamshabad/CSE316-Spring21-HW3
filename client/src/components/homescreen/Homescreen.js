@@ -19,6 +19,7 @@ import {
   SortTasks_Transaction,
   SortDueDates_Transaction,
   SortStatus_Transaction,
+  SortAssigned_Transaction,
 } from '../../utils/jsTPS'
 import WInput from 'wt-frontend/build/components/winput/WInput'
 
@@ -32,6 +33,7 @@ const Homescreen = (props) => {
   const [sortTasksFlag, setSortTasksFlag] = useState(0)
   const [sortDueDatesFlag, setSortDueDatesFlag] = useState(0)
   const [sortStatusFlag, setSortStatusFlag] = useState(0)
+  const [sortAssignedFlag, setSortAssignedFlag] = useState(0)
 
   const [ReorderTodoItems] = useMutation(mutations.REORDER_ITEMS)
   const [UpdateTodoItemField] = useMutation(mutations.UPDATE_ITEM_FIELD)
@@ -43,6 +45,7 @@ const Homescreen = (props) => {
   const [SortTasks] = useMutation(mutations.SORT_TASKS)
   const [SortDueDates] = useMutation(mutations.SORT_DUE_DATES)
   const [SortStatus] = useMutation(mutations.SORT_STATUS)
+  const [SortAssigned] = useMutation(mutations.SORT_ASSIGNED)
   const [UpdateList] = useMutation(mutations.UPDATE_LIST)
 
   const { loading, error, data, refetch } = useQuery(GET_DB_TODOS)
@@ -95,7 +98,7 @@ const Homescreen = (props) => {
       id: lastID,
       description: 'No Description',
       due_date: 'No Date',
-      assigned_to: props.user._id,
+      assigned_to: 'Not Assigned',
       completed: false,
     }
     let opcode = 1
@@ -246,6 +249,19 @@ const Homescreen = (props) => {
     tpsRedo()
   }
 
+  const sortAssigned = async (_id) => {
+    let transaction = new SortAssigned_Transaction(
+      _id,
+      SortAssigned,
+      sortAssignedFlag,
+      setSortAssignedFlag,
+      activeList,
+      UpdateTodolistField
+    )
+    props.tps.addTransaction(transaction)
+    tpsRedo()
+  }
+
   const handleSetActive = (id) => {
     const todo = todolists.find((todo) => todo.id === id || todo._id === id)
     setActiveList(todo)
@@ -328,6 +344,7 @@ const Homescreen = (props) => {
               sortTasks={sortTasks}
               sortDueDates={sortDueDates}
               sortStatus={sortStatus}
+              sortAssigned={sortAssigned}
               undo={tpsUndo}
               redo={tpsRedo}
             />

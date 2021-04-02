@@ -14,6 +14,7 @@ const MainContents = (props) => {
         sortTasks={props.sortTasks}
         sortDueDates={props.sortDueDates}
         sortStatus={props.sortStatus}
+        sortAssigned={props.sortAssigned}
         undo={props.undo}
         redo={props.redo}
       />

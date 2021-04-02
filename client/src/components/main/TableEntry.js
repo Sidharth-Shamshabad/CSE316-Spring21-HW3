@@ -42,7 +42,7 @@ const TableEntry = (props) => {
 
   const handleAssignedEdit = (e) => {
     toggleAssignedEdit(false)
-    const newAssigned = e.target.value ? e.target.value : 'No Assigned'
+    const newAssigned = e.target.value ? e.target.value : 'Not Assigned'
     const prevAssigned = assigned_to
     props.editItem(data._id, 'assigned_to', newAssigned, prevAssigned)
   }

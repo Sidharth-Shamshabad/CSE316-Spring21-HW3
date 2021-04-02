@@ -120,6 +120,14 @@ export const SORT_STATUS = gql`
   }
 `
 
+export const SORT_ASSIGNED = gql`
+  mutation SortAssigned($_id: String!, $sortAssignedFlag: Int!) {
+    sortAssigned(_id: $_id, sortAssignedFlag: $sortAssignedFlag) {
+      _id
+    }
+  }
+`
+
 // export const UPDATE_LIST = gql`
 //   mutation UpdateList($_id: String!, $items: [ItemInput]!) {
 //     updateList(_id: $_id, items: $items) {

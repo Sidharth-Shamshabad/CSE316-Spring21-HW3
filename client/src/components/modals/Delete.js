@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { WModal, WMHeader, WMMain, WButton } from 'wt-frontend'
+import { WModal, WMHeader, WMMain, WButton, WMFooter } from 'wt-frontend'
 
 const Delete = (props) => {
   const handleDelete = async () => {
@@ -9,12 +9,9 @@ const Delete = (props) => {
   }
 
   return (
-    <div className='delete-modal'>
-      <div className='modal-header' onClose={() => props.setShowDelete(false)}>
-        Delete List?
-      </div>
-
-      <div>
+    <WModal visible={true} cover={true} animation='slide-fade-top'>
+      <WMHeader className='modal-header'>Delete List?</WMHeader>
+      <WMFooter>
         <WButton
           className='modal-button cancel-button'
           onClick={() => props.setShowDelete(false)}
@@ -30,11 +27,12 @@ const Delete = (props) => {
           hoverAnimation='darken'
           shape='rounded'
           color='danger'
+          float='right'
         >
           Delete
         </WButton>
-      </div>
-    </div>
+      </WMFooter>
+    </WModal>
   )
 }
 

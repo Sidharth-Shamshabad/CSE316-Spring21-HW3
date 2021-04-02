@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-import { WButton, WRow, WCol } from 'wt-frontend'
+import {
+  WButton,
+  WRow,
+  WCol,
+  WModal,
+  WMHeader,
+  WMMain,
+  WMFooter,
+} from 'wt-frontend'
 
 const TableHeader = (props) => {
   const buttonStyle = props.disabled
     ? ' table-header-button-disabled '
     : 'table-header-button '
   const clickDisabled = () => {}
+
+  const [isVisible, setVisible] = useState(false)
 
   return (
     <WRow className='table-header'>
@@ -49,7 +59,14 @@ const TableHeader = (props) => {
       </WCol>
 
       <WCol size='2'>
-        <WButton className='table-header-section' wType='texted'>
+        <WButton
+          className='table-header-section'
+          wType='texted'
+          onClick={() => {
+            console.log('props.sortAssignedTo')
+            props.sortAssigned(props.activeList._id)
+          }}
+        >
           Assigned
         </WButton>
       </WCol>

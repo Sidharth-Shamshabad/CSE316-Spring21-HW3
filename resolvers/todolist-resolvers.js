@@ -284,6 +284,42 @@ module.exports = {
       if (updated) return listItems
       return found.items
     },
+    sortAssigned: async (_, args) => {
+      const { _id, sortAssignedFlag } = args
+      const listId = new ObjectId(_id)
+      const found = await Todolist.findOne({ _id: listId })
+      let oldItems = found.items
+      let listItems = found.items
+      if (sortAssignedFlag === 0) {
+        let newListItems = listItems.sort((a, b) => {
+          let assignedA = a.assigned_to.toLowerCase()
+          console.log(assignedA)
+          let assignedB = b.assigned_to.toLowerCase()
+          if (assignedA < assignedB) return -1
+          if (assignedA > assignedB) return 1
+          return 0
+        })
+        listItems = newListItems
+      } else {
+        let newListItems = listItems.sort((a, b) => {
+          let assignedA = a.assigned_to.toLowerCase()
+          let assignedB = b.assigned_to.toLowerCase()
+          if (assignedA < assignedB) return -1
+          if (assignedA > assignedB) return 1
+          return 0
+        })
+        newListItems = listItems.reverse()
+        listItems = newListItems
+      }
+
+      const updated = await Todolist.updateOne(
+        { _id: listId },
+        { items: listItems }
+      )
+
+      if (updated) return listItems
+      return found.items
+    },
     updateList: async (_, args) => {
       const { _id, prevList } = args
       const listId = new ObjectId(_id)

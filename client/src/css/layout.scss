@@ -84,7 +84,7 @@ html {
   height: 100%;
   display: flex;
   align-items: center;
-  padding-right: 10px;
+  padding-right: 20px;
 }
 
 .table-entry-buttons {
@@ -136,14 +136,6 @@ html {
   left: 35%;
   top: 25%;
   width: 350px;
-}
-
-.signup-modal {
-  position: fixed;
-  z-index: 1;
-  left: 35%;
-  top: 25%;
-  width: 375px;
 }
 
 .modal-col-gap {

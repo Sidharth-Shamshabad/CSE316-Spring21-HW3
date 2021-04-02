@@ -72,6 +72,7 @@ body {
 
 .list-item-active {
   background-color: var(--deep-blue);
+  color: #ffc800;
 }
 
 .list-item {
@@ -198,7 +199,7 @@ body {
 
 .undo-redo {
   color: $text-color;
-  margin-left: 18px;
+  margin-left: 20px;
 }
 
 .table-entry-buttons {
@@ -206,4 +207,14 @@ body {
 }
 
 .login-modal {
+}
+
+.login-modal-header {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.modal-close {
+  color: white;
+  float: right;
 }

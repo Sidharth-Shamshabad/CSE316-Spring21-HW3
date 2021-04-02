@@ -37,6 +37,7 @@ const typeDefs = gql`
     sortTasks(_id: String!, sortTasksFlag: Int!): [Item]
     sortDueDates(_id: String!, sortDueDatesFlag: Int!): [Item]
     sortStatus(_id: String!, sortStatusFlag: Int!): [Item]
+    sortAssigned(_id: String!, sortAssignedFlag: Int!): [Item]
     updateList(_id: String!, prevList: [ItemInput]!): [Item]
   }
   input FieldInput {

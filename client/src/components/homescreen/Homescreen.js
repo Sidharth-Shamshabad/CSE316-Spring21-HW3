@@ -346,6 +346,7 @@ const Homescreen = (props) => {
               undo={tpsUndo}
               redo={tpsRedo}
               updateListField={updateListField}
+              tps={props.tps}
             />
           ) : (
             <></>
@@ -369,6 +370,7 @@ const Homescreen = (props) => {
               sortAssigned={sortAssigned}
               undo={tpsUndo}
               redo={tpsRedo}
+              tps={props.tps}
             />
           </div>
         ) : (

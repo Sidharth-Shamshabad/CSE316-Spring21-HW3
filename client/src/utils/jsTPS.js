@@ -486,6 +486,10 @@ export class jsTPS {
     // MAKE SURE TO RESET THE LOCATION OF THE
     // TOP OF THE TPS STACK TOO
     this.mostRecentTransaction = -1
+    console.log('transactions: ' + this.getSize())
+    console.log('redo transactions:' + this.getRedoSize())
+    console.log('undo transactions:' + this.getUndoSize())
+    console.log(' ')
   }
 
   /**

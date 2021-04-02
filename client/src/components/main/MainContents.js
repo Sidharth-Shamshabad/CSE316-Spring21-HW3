@@ -3,6 +3,11 @@ import TableHeader from './TableHeader'
 import TableContents from './TableContents'
 
 const MainContents = (props) => {
+  const closeList = () => {
+    props.setActiveList({})
+    props.tps.clearAllTransactions()
+  }
+
   return (
     <div className='table '>
       <TableHeader
@@ -17,6 +22,8 @@ const MainContents = (props) => {
         sortAssigned={props.sortAssigned}
         undo={props.undo}
         redo={props.redo}
+        tps={props.tps}
+        closeList={closeList}
       />
       <TableContents
         key={props.activeList.id}

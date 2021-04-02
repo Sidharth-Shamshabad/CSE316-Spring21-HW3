@@ -26,7 +26,9 @@ const SidebarEntry = (props) => {
       className={entryStyle}
       onDoubleClick={handleEditing}
       onClick={() => {
+        // push list to top here!
         props.handleSetActive(props.id)
+        props.tps.clearAllTransactions()
       }}
       hoverAnimation='lighten'
     >

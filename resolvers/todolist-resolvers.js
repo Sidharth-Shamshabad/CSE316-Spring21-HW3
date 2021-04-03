@@ -42,7 +42,7 @@ module.exports = {
       const objectId = new ObjectId()
       const found = await Todolist.findOne({ _id: listId })
       if (!found) return 'Todolist not found'
-      item._id = objectId
+      if (item._id === '') item._id = objectId
       let listItems = found.items
       listItems.push(item)
 
@@ -51,7 +51,7 @@ module.exports = {
         { items: listItems }
       )
 
-      if (updated) return objectId
+      if (updated) return item._id
       else return 'Could not add item'
     },
     /** 

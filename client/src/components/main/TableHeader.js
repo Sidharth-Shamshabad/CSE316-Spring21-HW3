@@ -16,8 +16,8 @@ const TableHeader = (props) => {
     : 'table-header-button '
   const clickDisabled = () => {}
 
-  const [isUndoVisible, setUndoVisible] = useState(true)
-  const [isRedoVisible, setRedoVisible] = useState(true)
+  const [isUndoVisible, setUndoVisible] = useState(false)
+  const [isRedoVisible, setRedoVisible] = useState(false)
 
   const undoButtonStyle = isUndoVisible
     ? ' table-header-button-disabled '
@@ -26,6 +26,14 @@ const TableHeader = (props) => {
   const redoButtonStyle = isRedoVisible
     ? ' table-header-button-disabled '
     : 'table-header-button '
+
+  const undoColor = props.hasUndo ? 'white' : '#322d2d'
+  const undoCursor = props.hasUndo ? 'pointer' : 'not-allowed'
+  const undoHover = props.hasUndo ? 'enabled' : 'disabled'
+
+  const redoColor = props.hasRedo ? 'white' : '#322d2d'
+  const redoCursor = props.hasRedo ? 'pointer' : 'not-allowed'
+  const redoHover = props.hasRedo ? 'enabled' : 'disabled'
 
   return (
     <WRow className='table-header'>
@@ -46,7 +54,6 @@ const TableHeader = (props) => {
           className='table-header-section'
           wType='texted'
           onClick={() => {
-            console.log('props.sortDueDate')
             props.sortDueDates(props.activeList._id)
           }}
         >
@@ -59,7 +66,6 @@ const TableHeader = (props) => {
           className='table-header-section'
           wType='texted'
           onClick={() => {
-            console.log('props.sortStatus')
             props.sortStatus(props.activeList._id)
           }}
         >
@@ -72,7 +78,6 @@ const TableHeader = (props) => {
           className='table-header-section'
           wType='texted'
           onClick={() => {
-            console.log('props.sortAssignedTo')
             props.sortAssigned(props.activeList._id)
           }}
         >
@@ -83,12 +88,11 @@ const TableHeader = (props) => {
       <WCol size='3'>
         <div className='table-header-buttons'>
           <WButton
-            className={`${undoButtonStyle}`}
+            className={`${buttonStyle}`}
             id='undo-button'
-            disabled={!props.tps.hasTransactionToUndo()}
+            disabled={!props.hasUndo}
             onClick={(e) => {
-              if (props.tps.hasTransactionToUndo()) {
-                setUndoVisible(true)
+              if (props.hasUndo) {
                 props.undo()
               } else {
                 clickDisabled()
@@ -97,15 +101,20 @@ const TableHeader = (props) => {
             wType='texted'
             clickAnimation='ripple-light'
             shape='rounded'
+            style={{
+              color: undoColor,
+              cursor: undoCursor,
+              hover: undoHover,
+            }}
           >
             <i className='material-icons'>undo</i>
           </WButton>
           <WButton
-            className={`${redoButtonStyle}`}
+            className={`${buttonStyle}`}
             id='redo-button'
-            disabled={!props.tps.hasTransactionToRedo()}
+            disabled={!props.hasRedo}
             onClick={(e) => {
-              if (props.tps.hasTransactionToRedo()) {
+              if (props.hasRedo) {
                 setRedoVisible(true)
                 props.redo()
               } else {
@@ -115,6 +124,11 @@ const TableHeader = (props) => {
             wType='texted'
             clickAnimation='ripple-light'
             shape='rounded'
+            style={{
+              color: redoColor,
+              cursor: redoCursor,
+              hover: redoHover,
+            }}
           >
             <i className='material-icons'>redo</i>
           </WButton>

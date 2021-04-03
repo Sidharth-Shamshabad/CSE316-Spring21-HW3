@@ -31,6 +31,8 @@ const Homescreen = (props) => {
   const [showCreate, toggleShowCreate] = useState(false)
 
   const [isEditing, setIsEditing] = useState(false)
+  const [hasUndo, setHasUndo] = useState(false)
+  const [hasRedo, setHasRedo] = useState(false)
 
   const [sortTasksFlag, setSortTasksFlag] = useState(0)
   const [sortDueDatesFlag, setSortDueDatesFlag] = useState(0)
@@ -79,12 +81,14 @@ const Homescreen = (props) => {
   const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction()
     refetchTodos(refetch)
+    updateTransactionFlags()
     return retVal
   }
 
   const tpsRedo = async () => {
     const retVal = await props.tps.doTransaction()
     refetchTodos(refetch)
+    updateTransactionFlags()
     return retVal
   }
 
@@ -93,6 +97,20 @@ const Homescreen = (props) => {
     setSortDueDatesFlag(0)
     setSortStatusFlag(0)
     setSortAssignedFlag(0)
+  }
+
+  const updateTransactionFlags = async () => {
+    if (props.tps.getUndoSize() > 0) {
+      setHasUndo(true)
+    } else {
+      setHasUndo(false)
+    }
+
+    if (props.tps.getRedoSize()) {
+      setHasRedo(true)
+    } else {
+      setHasRedo(false)
+    }
   }
 
   // Creates a default item and passes it to the backend resolver.
@@ -175,6 +193,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    updateSortingFlags()
   }
 
   const reorderItem = async (itemID, dir) => {
@@ -376,6 +395,8 @@ const Homescreen = (props) => {
               redo={tpsRedo}
               tps={props.tps}
               setIsEditing={setIsEditing}
+              hasUndo={hasUndo}
+              hasRedo={hasRedo}
             />
           </div>
         ) : (

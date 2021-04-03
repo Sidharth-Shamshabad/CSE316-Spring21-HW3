@@ -169,24 +169,27 @@ export class SortTasks_Transaction extends jsTPS_Transaction {
     } else {
       this.setSortTasksFlag(0)
     }
-    console.log(data.sortTasks)
     return data
   }
   async undoTransaction() {
-    let stringList = JSON.stringify(this.prevList)
-    console.log(stringList)
-    let { data } = await this.updateTodolistField({
-      variables: {
-        _id: this.listID,
-        field: this.field,
-        value: stringList,
-      },
-    })
-    if (this.sortTasksFlag === 0) {
-      this.setSortTasksFlag(1)
-    } else {
-      this.setSortTasksFlag(0)
+    for (let i = 0; i < this.prevList.length; i++) {
+      const element = this.prevList[i]
+      console.log(element._id)
     }
+    const data = 0
+    // let { data } = await this.updateTodolistField({
+    //   variables: {
+    //     _id: this.listID,
+    //     field: this.field,
+    //     value: stringList,
+    //   },
+    // })
+    // if (this.sortTasksFlag === 0) {
+    //   this.setSortTasksFlag(1)
+    // } else {
+    //   this.setSortTasksFlag(0)
+    // }
+    return data
   }
 }
 
@@ -220,7 +223,6 @@ export class SortDueDates_Transaction extends jsTPS_Transaction {
     } else {
       this.setSortDueDatesFlag(0)
     }
-    console.log(data.sortDueDates)
     return data
   }
   async undoTransaction() {
@@ -270,7 +272,6 @@ export class SortStatus_Transaction extends jsTPS_Transaction {
     } else {
       this.setSortStatusFlag(0)
     }
-    console.log(data.sortStatus)
     return data
   }
   async undoTransaction() {
@@ -320,7 +321,6 @@ export class SortAssigned_Transaction extends jsTPS_Transaction {
     } else {
       this.setSortAssignedFlag(0)
     }
-    console.log(data.sortAssigned)
     return data
   }
   async undoTransaction() {
@@ -534,7 +534,8 @@ export class jsTPS {
    * return true if an undo operation is possible, false otherwise.
    */
   hasTransactionToUndo() {
-    return this.mostRecentTransaction >= 0
+    // return this.mostRecentTransaction >= 0
+    return this.getUndoSize() > 0
   }
 
   /**
@@ -544,7 +545,8 @@ export class jsTPS {
    * return true if a redo operation is possible, false otherwise.
    */
   hasTransactionToRedo() {
-    return this.mostRecentTransaction < this.transactions.length - 1
+    // return this.mostRecentTransaction < this.transactions.length - 1
+    return this.getRedoSize() > 0
   }
 
   /**

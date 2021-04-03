@@ -10,6 +10,7 @@ const SidebarContents = (props) => {
         createNewList={props.createNewList}
         undo={props.undo}
         redo={props.redo}
+        isEditing={props.isEditing}
       />
       <SidebarList
         activeid={props.activeid}
@@ -18,6 +19,7 @@ const SidebarContents = (props) => {
         createNewList={props.createNewList}
         updateListField={props.updateListField}
         tps={props.tps}
+        setIsEditing={props.setIsEditing}
       />
     </>
   )

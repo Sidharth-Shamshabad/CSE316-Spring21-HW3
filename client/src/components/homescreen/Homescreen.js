@@ -30,6 +30,8 @@ const Homescreen = (props) => {
   const [showLogin, toggleShowLogin] = useState(false)
   const [showCreate, toggleShowCreate] = useState(false)
 
+  const [isEditing, setIsEditing] = useState(false)
+
   const [sortTasksFlag, setSortTasksFlag] = useState(0)
   const [sortDueDatesFlag, setSortDueDatesFlag] = useState(0)
   const [sortStatusFlag, setSortStatusFlag] = useState(0)
@@ -347,6 +349,8 @@ const Homescreen = (props) => {
               redo={tpsRedo}
               updateListField={updateListField}
               tps={props.tps}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
             />
           ) : (
             <></>
@@ -371,6 +375,7 @@ const Homescreen = (props) => {
               undo={tpsUndo}
               redo={tpsRedo}
               tps={props.tps}
+              setIsEditing={setIsEditing}
             />
           </div>
         ) : (

@@ -9,6 +9,7 @@ const SidebarEntry = (props) => {
     e.stopPropagation()
     setPreEdit(props.name)
     toggleEditing(!editing)
+    props.setIsEditing(true)
   }
 
   const handleSubmit = (e) => {
@@ -16,6 +17,7 @@ const SidebarEntry = (props) => {
     const { name, value } = e.target
     console.log(e.target)
     props.updateListField(props._id, name, value, preEdit)
+    props.setIsEditing(false)
   }
 
   const entryStyle =

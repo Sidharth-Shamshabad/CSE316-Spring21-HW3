@@ -31,6 +31,7 @@ const MainContents = (props) => {
         deleteItem={props.deleteItem}
         reorderItem={props.reorderItem}
         editItem={props.editItem}
+        setIsEditing={props.setIsEditing}
       />
     </div>
   )

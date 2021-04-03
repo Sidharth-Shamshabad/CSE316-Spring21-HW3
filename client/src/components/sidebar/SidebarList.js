@@ -15,6 +15,7 @@ const SidebarList = (props) => {
             _id={todo._id}
             updateListField={props.updateListField}
             tps={props.tps}
+            setIsEditing={props.setIsEditing}
           />
         ))}
     </>

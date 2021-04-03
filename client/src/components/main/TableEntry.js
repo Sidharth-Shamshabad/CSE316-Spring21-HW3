@@ -9,6 +9,8 @@ const TableEntry = (props) => {
     ? ' assigned-complete'
     : ' assigned-incomplete'
 
+  const clickDisabled = () => {}
+
   const description = data.description
   const due_date = data.due_date
   const status = data.completed ? 'complete' : 'incomplete'
@@ -24,6 +26,7 @@ const TableEntry = (props) => {
     const newDate = e.target.value ? e.target.value : 'No Date'
     const prevDate = due_date
     props.editItem(data._id, 'due_date', newDate, prevDate)
+    props.setIsEditing(false)
   }
 
   const handleDescrEdit = (e) => {
@@ -31,6 +34,7 @@ const TableEntry = (props) => {
     const newDescr = e.target.value ? e.target.value : 'No Description'
     const prevDescr = description
     props.editItem(data._id, 'description', newDescr, prevDescr)
+    props.setIsEditing(false)
   }
 
   const handleStatusEdit = (e) => {
@@ -38,6 +42,7 @@ const TableEntry = (props) => {
     const newStatus = e.target.value ? e.target.value : false
     const prevStatus = status
     props.editItem(data._id, 'completed', newStatus, prevStatus)
+    props.setIsEditing(false)
   }
 
   const handleAssignedEdit = (e) => {
@@ -45,6 +50,7 @@ const TableEntry = (props) => {
     const newAssigned = e.target.value ? e.target.value : 'Not Assigned'
     const prevAssigned = assigned_to
     props.editItem(data._id, 'assigned_to', newAssigned, prevAssigned)
+    props.setIsEditing(false)
   }
 
   return (
@@ -64,7 +70,10 @@ const TableEntry = (props) => {
         ) : (
           <div
             className='table-text'
-            onClick={() => toggleDescrEdit(!editingDescr)}
+            onClick={() => {
+              toggleDescrEdit(!editingDescr)
+              props.setIsEditing(true)
+            }}
           >
             {description}
           </div>
@@ -86,7 +95,10 @@ const TableEntry = (props) => {
         ) : (
           <div
             className='table-text'
-            onClick={() => toggleDateEdit(!editingDate)}
+            onClick={() => {
+              toggleDateEdit(!editingDate)
+              props.setIsEditing(true)
+            }}
           >
             {due_date}
           </div>
@@ -106,7 +118,10 @@ const TableEntry = (props) => {
           </select>
         ) : (
           <div
-            onClick={() => toggleStatusEdit(!editingStatus)}
+            onClick={() => {
+              toggleStatusEdit(!editingStatus)
+              props.setIsEditing(true)
+            }}
             className={`${completeStyle} table-text`}
           >
             {status}
@@ -129,7 +144,10 @@ const TableEntry = (props) => {
         ) : (
           <div
             className={`${assignedStyle} table-text`}
-            onClick={() => toggleAssignedEdit(!editingAssigned)}
+            onClick={() => {
+              toggleAssignedEdit(!editingAssigned)
+              props.setIsEditing(true)
+            }}
           >
             {assigned_to}
           </div>
@@ -140,15 +158,29 @@ const TableEntry = (props) => {
         <div className='button-group'>
           <WButton
             className='table-entry-buttons'
-            onClick={() => props.reorderItem(data._id, -1)}
+            onClick={() => {
+              if (props.entries[0] === data) {
+                clickDisabled()
+              } else {
+                props.reorderItem(data._id, -1)
+              }
+            }}
             wType='texted'
+            disabled={props.entries[0] === data}
           >
             <i className='material-icons'>expand_less</i>
           </WButton>
           <WButton
             className='table-entry-buttons'
-            onClick={() => props.reorderItem(data._id, 1)}
+            onClick={() => {
+              if (props.entries[props.entries.length - 1] === data) {
+                clickDisabled()
+              } else {
+                props.reorderItem(data._id, 1)
+              }
+            }}
             wType='texted'
+            disabled={props.entries[props.entries.length - 1] === data}
           >
             <i className='material-icons'>expand_more</i>
           </WButton>

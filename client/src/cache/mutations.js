@@ -128,13 +128,11 @@ export const SORT_ASSIGNED = gql`
   }
 `
 
-// export const UPDATE_LIST = gql`
-//   mutation UpdateList($_id: String!, $items: [ItemInput]!) {
-//     updateList(_id: $_id, items: $items) {
-//       $_id
-//     }
-//   }
-// `
+export const RESTORE_ORIGINAL_LIST = gql`
+  mutation restoreOriginalList($_id: String!, $orderedItems: [String]!) {
+    restoreOriginalList(_id: $_id, orderedItems: $orderedItems)
+  }
+`
 
 export const ADD_TODOLIST = gql`
   mutation AddTodolist($todolist: TodoInput!) {

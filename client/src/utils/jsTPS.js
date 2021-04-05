@@ -146,7 +146,7 @@ export class SortTasks_Transaction extends jsTPS_Transaction {
     sortTasksFlag,
     setSortTasksFlag,
     activeList,
-    updateTodolistField
+    restoreOriginalList
   ) {
     super()
     this.listID = listID
@@ -154,7 +154,7 @@ export class SortTasks_Transaction extends jsTPS_Transaction {
     this.sortTasksFlag = sortTasksFlag
     this.setSortTasksFlag = setSortTasksFlag
     this.prevList = activeList.items
-    this.updateTodolistField = updateTodolistField
+    this.restoreOriginalList = restoreOriginalList
     this.field = 'items'
   }
   async doTransaction() {
@@ -172,23 +172,24 @@ export class SortTasks_Transaction extends jsTPS_Transaction {
     return data
   }
   async undoTransaction() {
+    const orderedItems = []
     for (let i = 0; i < this.prevList.length; i++) {
       const element = this.prevList[i]
-      console.log(element._id)
+      orderedItems.push(element._id)
     }
-    const data = 0
-    // let { data } = await this.updateTodolistField({
-    //   variables: {
-    //     _id: this.listID,
-    //     field: this.field,
-    //     value: stringList,
-    //   },
-    // })
-    // if (this.sortTasksFlag === 0) {
-    //   this.setSortTasksFlag(1)
-    // } else {
-    //   this.setSortTasksFlag(0)
-    // }
+    console.log(orderedItems)
+    let { data } = await this.restoreOriginalList({
+      variables: {
+        _id: this.listID,
+        orderedItems: orderedItems,
+      },
+    })
+    console.log(data)
+    if (this.sortTasksFlag === 0) {
+      this.setSortTasksFlag(1)
+    } else {
+      this.setSortTasksFlag(0)
+    }
     return data
   }
 }
@@ -200,7 +201,7 @@ export class SortDueDates_Transaction extends jsTPS_Transaction {
     sortDueDatesFlag,
     setSortDueDatesFlag,
     activeList,
-    updateTodolistField
+    restoreOriginalList
   ) {
     super()
     this.listID = listID
@@ -208,7 +209,7 @@ export class SortDueDates_Transaction extends jsTPS_Transaction {
     this.sortDueDatesFlag = sortDueDatesFlag
     this.setSortDueDatesFlag = setSortDueDatesFlag
     this.prevList = activeList.items
-    this.updateTodolistField = updateTodolistField
+    this.restoreOriginalList = restoreOriginalList
     this.field = 'items'
   }
   async doTransaction() {
@@ -226,19 +227,25 @@ export class SortDueDates_Transaction extends jsTPS_Transaction {
     return data
   }
   async undoTransaction() {
-    // console.log(this.prevList.items)
-    // let { data } = await this.updateTodolistField({
-    //   variables: {
-    //     _id: this.listID,
-    //     field: this.field,
-    //     value: this.prevList.items,
-    //   },
-    // })
-    // if (this.sortTasksFlag === 0) {
-    //   this.setSortTasksFlag(1)
-    // } else {
-    //   this.setSortTasksFlag(0)
-    // }
+    const orderedItems = []
+    for (let i = 0; i < this.prevList.length; i++) {
+      const element = this.prevList[i]
+      orderedItems.push(element._id)
+    }
+    console.log(orderedItems)
+    let { data } = await this.restoreOriginalList({
+      variables: {
+        _id: this.listID,
+        orderedItems: orderedItems,
+      },
+    })
+    console.log(data)
+    if (this.sortTasksFlag === 0) {
+      this.setSortTasksFlag(1)
+    } else {
+      this.setSortTasksFlag(0)
+    }
+    return data
   }
 }
 
@@ -249,7 +256,7 @@ export class SortStatus_Transaction extends jsTPS_Transaction {
     sortStatusFlag,
     setSortStatusFlag,
     activeList,
-    updateTodolistField
+    restoreOriginalList
   ) {
     super()
     this.listID = listID
@@ -257,7 +264,7 @@ export class SortStatus_Transaction extends jsTPS_Transaction {
     this.sortStatusFlag = sortStatusFlag
     this.setSortStatusFlag = setSortStatusFlag
     this.prevList = activeList.items
-    this.updateTodolistField = updateTodolistField
+    this.restoreOriginalList = restoreOriginalList
     this.field = 'items'
   }
   async doTransaction() {
@@ -275,19 +282,25 @@ export class SortStatus_Transaction extends jsTPS_Transaction {
     return data
   }
   async undoTransaction() {
-    // console.log(this.prevList.items)
-    // let { data } = await this.updateTodolistField({
-    //   variables: {
-    //     _id: this.listID,
-    //     field: this.field,
-    //     value: this.prevList.items,
-    //   },
-    // })
-    // if (this.sortTasksFlag === 0) {
-    //   this.setSortTasksFlag(1)
-    // } else {
-    //   this.setSortTasksFlag(0)
-    // }
+    const orderedItems = []
+    for (let i = 0; i < this.prevList.length; i++) {
+      const element = this.prevList[i]
+      orderedItems.push(element._id)
+    }
+    console.log(orderedItems)
+    let { data } = await this.restoreOriginalList({
+      variables: {
+        _id: this.listID,
+        orderedItems: orderedItems,
+      },
+    })
+    console.log(data)
+    if (this.sortTasksFlag === 0) {
+      this.setSortTasksFlag(1)
+    } else {
+      this.setSortTasksFlag(0)
+    }
+    return data
   }
 }
 
@@ -298,7 +311,7 @@ export class SortAssigned_Transaction extends jsTPS_Transaction {
     sortAssignedFlag,
     setSortAssignedFlag,
     activeList,
-    updateTodolistField
+    restoreOriginalList
   ) {
     super()
     this.listID = listID
@@ -306,7 +319,7 @@ export class SortAssigned_Transaction extends jsTPS_Transaction {
     this.sortAssignedFlag = sortAssignedFlag
     this.setSortAssignedFlag = setSortAssignedFlag
     this.prevList = activeList.items
-    this.updateTodolistField = updateTodolistField
+    this.restoreOriginalList = restoreOriginalList
     this.field = 'items'
   }
   async doTransaction() {
@@ -324,19 +337,25 @@ export class SortAssigned_Transaction extends jsTPS_Transaction {
     return data
   }
   async undoTransaction() {
-    // console.log(this.prevList.items)
-    // let { data } = await this.updateTodolistField({
-    //   variables: {
-    //     _id: this.listID,
-    //     field: this.field,
-    //     value: this.prevList.items,
-    //   },
-    // })
-    // if (this.sortTasksFlag === 0) {
-    //   this.setSortTasksFlag(1)
-    // } else {
-    //   this.setSortTasksFlag(0)
-    // }
+    const orderedItems = []
+    for (let i = 0; i < this.prevList.length; i++) {
+      const element = this.prevList[i]
+      orderedItems.push(element._id)
+    }
+    console.log(orderedItems)
+    let { data } = await this.restoreOriginalList({
+      variables: {
+        _id: this.listID,
+        orderedItems: orderedItems,
+      },
+    })
+    console.log(data)
+    if (this.sortTasksFlag === 0) {
+      this.setSortTasksFlag(1)
+    } else {
+      this.setSortTasksFlag(0)
+    }
+    return data
   }
 }
 

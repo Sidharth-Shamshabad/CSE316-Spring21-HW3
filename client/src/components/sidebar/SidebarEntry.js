@@ -29,6 +29,7 @@ const SidebarEntry = (props) => {
       onDoubleClick={handleEditing}
       onClick={() => {
         // push list to top here!
+        // props.updateListOrder(props._id)
         props.handleSetActive(props.id)
         props.tps.clearAllTransactions()
       }}

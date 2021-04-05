@@ -186,6 +186,7 @@ module.exports = {
       return found.items
     },
     sortTasks: async (_, args) => {
+      console.log(Todolist.countDocuments())
       const { _id, sortTasksFlag } = args
       const listId = new ObjectId(_id)
       const found = await Todolist.findOne({ _id: listId })
@@ -320,6 +321,37 @@ module.exports = {
       if (updated) return listItems
       return found.items
     },
+    restoreOriginalList: async (_, args) => {
+      const { _id, orderedItems } = args
+      const listId = new ObjectId(_id)
+      const found = await Todolist.findOne({ _id: listId })
+
+      let originalList = []
+
+      for (let i = 0; i < orderedItems.length; i++) {
+        let id = orderedItems[i]
+        for (let j = 0; j < found.items.length; j++) {
+          let element = found.items[j]
+          if (element._id == id) {
+            originalList.push(element)
+            break
+          }
+        }
+      }
+      const updated = await Todolist.updateOne(
+        { _id: listId },
+        { items: originalList }
+      )
+
+      console.log(originalList)
+
+      if (updated) return originalList
+      return found.items
+    },
+    // updateListOrder: async (_, args) => {
+    //   const { _id } = args
+
+    // },
     updateList: async (_, args) => {
       const { _id, prevList } = args
       const listId = new ObjectId(_id)

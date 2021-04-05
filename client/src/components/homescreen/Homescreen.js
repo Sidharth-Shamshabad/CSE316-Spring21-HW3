@@ -51,6 +51,7 @@ const Homescreen = (props) => {
   const [SortStatus] = useMutation(mutations.SORT_STATUS)
   const [SortAssigned] = useMutation(mutations.SORT_ASSIGNED)
   const [UpdateList] = useMutation(mutations.UPDATE_LIST)
+  const [RestoreOriginalList] = useMutation(mutations.RESTORE_ORIGINAL_LIST)
 
   const { loading, error, data, refetch } = useQuery(GET_DB_TODOS)
   if (loading) {
@@ -113,6 +114,8 @@ const Homescreen = (props) => {
     }
   }
 
+  // let itemCounter = 0
+
   // Creates a default item and passes it to the backend resolver.
   // The return id is assigned to the item, and the item is appended
   //  to the local cache copy of the active todolist.
@@ -129,6 +132,8 @@ const Homescreen = (props) => {
       }
     }
 
+    // let lastID = itemCounter
+
     const newItem = {
       _id: '',
       id: lastID,
@@ -137,6 +142,7 @@ const Homescreen = (props) => {
       assigned_to: 'Not Assigned',
       completed: false,
     }
+    // itemCounter = itemCounter + 1
     let opcode = 1
     let itemID = newItem._id
     let listID = activeList._id
@@ -260,7 +266,7 @@ const Homescreen = (props) => {
       sortTasksFlag,
       setSortTasksFlag,
       activeList,
-      UpdateTodolistField
+      RestoreOriginalList
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
@@ -273,7 +279,7 @@ const Homescreen = (props) => {
       sortDueDatesFlag,
       setSortDueDatesFlag,
       activeList,
-      UpdateTodolistField
+      RestoreOriginalList
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
@@ -286,7 +292,7 @@ const Homescreen = (props) => {
       sortStatusFlag,
       setSortStatusFlag,
       activeList,
-      UpdateTodolistField
+      RestoreOriginalList
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
@@ -299,7 +305,7 @@ const Homescreen = (props) => {
       sortAssignedFlag,
       setSortAssignedFlag,
       activeList,
-      UpdateTodolistField
+      RestoreOriginalList
     )
     props.tps.addTransaction(transaction)
     tpsRedo()

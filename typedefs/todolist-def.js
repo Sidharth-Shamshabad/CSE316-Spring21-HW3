@@ -39,6 +39,7 @@ const typeDefs = gql`
     sortStatus(_id: String!, sortStatusFlag: Int!): [Item]
     sortAssigned(_id: String!, sortAssignedFlag: Int!): [Item]
     updateList(_id: String!, prevList: [ItemInput]!): [Item]
+    restoreOriginalList(_id: String!, orderedItems: [String]!): [Item]
   }
   input FieldInput {
     _id: String

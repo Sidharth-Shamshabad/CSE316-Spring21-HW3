@@ -148,6 +148,10 @@ html {
   letter-spacing: 1px;
 }
 
+.delete-button {
+  float: right;
+}
+
 .modal-spacer {
   height: 24px;
 }
@@ -200,4 +204,24 @@ html {
 
 .signUp-Form {
   padding-top: 40px;
+}
+
+.first-name {
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+.last-name {
+  padding-top: 20px;
+  padding-right: 10px;
+}
+
+.email-input {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.password-input {
+  padding-left: 10px;
+  padding-right: 10px;
 }

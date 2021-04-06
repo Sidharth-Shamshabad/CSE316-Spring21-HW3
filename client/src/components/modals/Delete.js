@@ -21,7 +21,7 @@ const Delete = (props) => {
         </WButton>
         <label className='col-spacer'>&nbsp;</label>
         <WButton
-          className='modal-button'
+          className='modal-button delete-button'
           onClick={handleDelete}
           clickAnimation='ripple-light'
           hoverAnimation='darken'

@@ -53,6 +53,13 @@ const Homescreen = (props) => {
   const [UpdateList] = useMutation(mutations.UPDATE_LIST)
   const [RestoreOriginalList] = useMutation(mutations.RESTORE_ORIGINAL_LIST)
 
+  useEffect(() => {
+    document.addEventListener('keydown', undoOrRedo)
+    return () => {
+      document.removeEventListener('keydown', undoOrRedo)
+    }
+  }, [props.tps])
+
   const { loading, error, data, refetch } = useQuery(GET_DB_TODOS)
   if (loading) {
     console.log(loading, 'loading')
@@ -70,16 +77,22 @@ const Homescreen = (props) => {
     const { loading, error, data } = await refetch()
     if (data) {
       todolists = data.getAllTodos
-      if (activeList._id) {
-        let tempID = activeList._id
-        let list = todolists.find((list) => list._id === tempID)
-        setActiveList(list)
-      }
+      setActiveList((activeList) => {
+        console.log(activeList)
+        if (activeList._id) {
+          let tempID = activeList._id
+          let list = todolists.find((list) => list._id === tempID)
+          console.log(list)
+          // setActiveList(list)
+          return list
+        }
+      })
       console.log(data.getAllTodos)
     }
   }
 
   const tpsUndo = async () => {
+    console.log(activeList)
     const retVal = await props.tps.undoTransaction()
     refetchTodos(refetch)
     updateTransactionFlags()
@@ -91,6 +104,17 @@ const Homescreen = (props) => {
     refetchTodos(refetch)
     updateTransactionFlags()
     return retVal
+  }
+
+  const undoOrRedo = (e) => {
+    console.log(e)
+    if (e.key === 'y' && e.ctrlKey === true) {
+      console.log('y key pressed')
+      tpsRedo()
+    } else if (e.key === 'z' && e.ctrlKey === true) {
+      console.log('z key pressed')
+      tpsUndo()
+    }
   }
 
   const updateSortingFlags = async () => {
@@ -403,6 +427,7 @@ const Homescreen = (props) => {
               setIsEditing={setIsEditing}
               hasUndo={hasUndo}
               hasRedo={hasRedo}
+              updateTransactionFlags={updateTransactionFlags}
             />
           </div>
         ) : (

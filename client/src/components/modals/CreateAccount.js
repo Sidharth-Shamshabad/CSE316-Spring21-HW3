@@ -69,7 +69,7 @@ const CreateAccount = (props) => {
       ) : (
         <div>
           <WRow className='modal-col-gap'>
-            <WCol size='6'>
+            <WCol size='6' className='first-name'>
               <WInput
                 className=''
                 onBlur={updateInput}
@@ -81,7 +81,7 @@ const CreateAccount = (props) => {
                 inputType='text'
               />
             </WCol>
-            <WCol size='6'>
+            <WCol size='6' className='last-name'>
               <WInput
                 className=''
                 onBlur={updateInput}
@@ -97,7 +97,7 @@ const CreateAccount = (props) => {
 
           <div className='modal-spacer'>&nbsp;</div>
           <WInput
-            className='modal-input'
+            className='modal-input email-input'
             onBlur={updateInput}
             name='email'
             labelAnimation='up'
@@ -108,7 +108,7 @@ const CreateAccount = (props) => {
           />
           <div className='modal-spacer'>&nbsp;</div>
           <WInput
-            className='modal-input'
+            className='modal-input password-input'
             onBlur={updateInput}
             name='password'
             labelAnimation='up'

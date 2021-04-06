@@ -130,7 +130,9 @@ export const SORT_ASSIGNED = gql`
 
 export const RESTORE_ORIGINAL_LIST = gql`
   mutation restoreOriginalList($_id: String!, $orderedItems: [String]!) {
-    restoreOriginalList(_id: $_id, orderedItems: $orderedItems)
+    restoreOriginalList(_id: $_id, orderedItems: $orderedItems) {
+      _id
+    }
   }
 `
 

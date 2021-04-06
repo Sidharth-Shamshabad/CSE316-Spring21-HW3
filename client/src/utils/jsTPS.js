@@ -241,9 +241,9 @@ export class SortDueDates_Transaction extends jsTPS_Transaction {
     })
     console.log(data)
     if (this.sortTasksFlag === 0) {
-      this.setSortTasksFlag(1)
+      this.setSortDueDatesFlag(1)
     } else {
-      this.setSortTasksFlag(0)
+      this.setSortDueDatesFlag(0)
     }
     return data
   }
@@ -296,9 +296,9 @@ export class SortStatus_Transaction extends jsTPS_Transaction {
     })
     console.log(data)
     if (this.sortTasksFlag === 0) {
-      this.setSortTasksFlag(1)
+      this.setSortStatusFlag(1)
     } else {
-      this.setSortTasksFlag(0)
+      this.setSortStatusFlag(0)
     }
     return data
   }
@@ -351,9 +351,9 @@ export class SortAssigned_Transaction extends jsTPS_Transaction {
     })
     console.log(data)
     if (this.sortTasksFlag === 0) {
-      this.setSortTasksFlag(1)
+      this.setSortAssignedFlag(1)
     } else {
-      this.setSortTasksFlag(0)
+      this.setSortAssignedFlag(0)
     }
     return data
   }

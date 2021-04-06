@@ -6,6 +6,7 @@ const MainContents = (props) => {
   const closeList = () => {
     props.setActiveList({})
     props.tps.clearAllTransactions()
+    props.updateTransactionFlags()
   }
 
   return (
